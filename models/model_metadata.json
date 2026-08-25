@@ -20,8 +20,10 @@
     "city",
     "location_locality_clean"
   ],
+  "feature_set": "base",
+  "log_target": false,
   "current_bs_year": 2083,
-  "selected_model": "Random Forest - Baseline",
+  "selected_model": "Random Forest - Baseline (base features, normal target)",
   "selected_model_params": {
     "n_estimators": 200,
     "random_state": 42,
