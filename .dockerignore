@@ -1,0 +1,8 @@
+venv/
+myenv/
+__pycache__/
+*.pyc
+.git/
+.ipynb_checkpoints/
+.history/
+*.csv
