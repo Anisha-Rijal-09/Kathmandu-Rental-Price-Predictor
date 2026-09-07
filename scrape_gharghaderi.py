@@ -6,9 +6,9 @@ import re
 import time
 
 
-# 
+ 
 # CONFIG
-# 
+ 
 
 BASE_URL = "https://www.gharghaderi.com"
 
@@ -41,9 +41,9 @@ session = requests.Session()
 session.headers.update(HEADERS)
 
 
-# 
+ 
 # BASIC HELPERS
-# 
+#
 
 def get_text(element):
     if element:
@@ -62,9 +62,9 @@ def clean_text(value):
     return value.strip()
 
 
-# 
+
 # PRICE
-# 
+
 
 def parse_price(value):
     """
@@ -139,9 +139,9 @@ def parse_price(value):
     return int(total) if total else None
 
 
-# 
+
 # AREA
-# 
+
 
 def parse_area_sqft(value):
 
@@ -186,9 +186,9 @@ def parse_area_sqft(value):
     return None
 
 
-# 
+ 
 # NUMBER EXTRACTION
-# 
+
 
 def first_number(value):
 
@@ -211,9 +211,9 @@ def first_number(value):
     return number
 
 
-# 
+
 # ROAD WIDTH
-# 
+
 
 def parse_road_width(value):
 
@@ -232,9 +232,9 @@ def parse_road_width(value):
     return first_number(value)
 
 
-# 
+
 # LOCATION PARSER
-# 
+
 
 def parse_location(location):
 
@@ -323,9 +323,9 @@ def parse_location(location):
     return result
 
 
-# 
+
 # SCRAPE ONE PROPERTY
-# 
+
 
 def scrape_property(url):
 
@@ -344,12 +344,7 @@ def scrape_property(url):
 
     if response.status_code != 200:
 
-        print(
-            "Failed:",
-            url,
-            response.status_code
-        )
-
+        print( "Failed:", url, response.status_code )
         return None
 
     soup = BeautifulSoup(
@@ -359,9 +354,9 @@ def scrape_property(url):
 
     data = {}
 
-    # 
+    
     # TITLE
-    # 
+    
 
     h1 = soup.select_one(
         ".first-section h1"
@@ -378,9 +373,9 @@ def scrape_property(url):
 
         data["title"] = ""
 
-    # 
+    
     # PRICE / LOCATION / LAND / ROAD
-    # 
+    
 
     table = soup.select_one(
         ".first-section .h2 table"
@@ -410,9 +405,9 @@ def scrape_property(url):
                 cells[3]
             )
 
-    # 
+    
     # ALL TABLE DATA
-    # 
+    
 
     for table in soup.select("table"):
 
@@ -446,17 +441,17 @@ def scrape_property(url):
 
                     data[key] = value
 
-    # 
+    
     # DESCRIPTION
-    # 
+    
 
     desc = soup.select_one(".more")
 
     data["description"] = get_text(desc)
 
-    # 
+    
     # IMAGES
-    # 
+     
 
     images = []
 
@@ -480,18 +475,18 @@ def scrape_property(url):
 
     data["num_images"] = len(images)
 
-    # 
+     
     # URL
-    # 
+    
 
     data["url"] = url
 
     return data
 
 
-# 
+
 # FIND PROPERTY LINKS
-# 
+
 
 def get_property_links(
     category,
@@ -589,9 +584,9 @@ def get_property_links(
     return links
 
 
-# 
+
 # FIND NUMBER OF PAGES
-# 
+
 
 def get_total_pages(
     category,
@@ -647,9 +642,9 @@ def get_total_pages(
     return 1
 
 
-# 
+
 # NORMALIZE DATA
-# 
+
 
 def normalize_record(
     raw,
@@ -798,9 +793,9 @@ def normalize_record(
     return record
 
 
-# 
+
 # MAIN SCRAPER
-# 
+
 
 def main():
 
@@ -810,10 +805,10 @@ def main():
 
     all_links = []
 
-    # 
+    
     # STEP 1
     # GET ALL PROPERTY URLS
-    # 
+    
 
     for category, property_type in CATEGORIES.items():
 
@@ -852,9 +847,9 @@ def main():
                     DELAY
                 )
 
-    # 
+    
     # DEDUPLICATE
-    # 
+    
 
     unique_links = {}
 
@@ -877,10 +872,10 @@ def main():
 
     print("=" * 70)
 
-    # 
+    
     # STEP 2
     # SCRAPE EACH PROPERTY
-    # 
+    
 
     records = []
 
@@ -913,9 +908,9 @@ def main():
             DELAY
         )
 
-    # 
+    
     # DATAFRAME
-    # 
+    
 
     df = pd.DataFrame(records)
 
@@ -927,9 +922,9 @@ def main():
             inplace=True
         )
 
-    # 
+     
     # SAVE
-    # 
+    
 
     output_file = (
         "nepal_rental_dataset.csv"
@@ -941,9 +936,9 @@ def main():
         encoding="utf-8-sig"
     )
 
-    # 
+    
     # SUMMARY
-    # 
+    
 
     print("\n")
     print("=" * 70)
@@ -976,9 +971,9 @@ def main():
     )
 
 
-# 
+ 
 # RUN
-# 
+ 
 
 if __name__ == "__main__":
     main()
