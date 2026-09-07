@@ -51,18 +51,18 @@ streamlit run streamlit_app.py
 
 **Build the image:**
 ```bash
-docker build -t kathmandu-rental-price-predictor .
+docker build -t rental-price-api .
 ```
 
 **Run the container:**
 ```bash
-docker run -p 8000:8000 kathmandu-rental-price-predictor
+docker run -p 8000:8000 rental-price-api
 ```
 
 **Or pull the pre-built image from Docker Hub:**
 ```bash
-docker pull <chickennugget09>/kathmandu-rental-price-predictor
-docker run -p 8000:8000 <chickennugget09>/kathmandu-rental-price-predictor
+docker pull chickennugget09/rental-price-api
+docker run -p 8000:8000 chickennugget09/rental-price-api
 ```
 
 ## Deployment
